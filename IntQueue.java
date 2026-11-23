@@ -50,15 +50,27 @@ public class IntQueue {
     // Step 2: an empty queue has nobody to serve:
     //     throw new IllegalStateException("queue is empty");
     public int dequeue() {
-        // TODO
-        return 0;
+        if(isEmpty()) {
+            throw new IllegalStateException("queue is empty");
+        }
+        int item = front.item;
+        front = front.next;
+        if (front == null) { 
+            back = null;
+        }
+        return item;
     }
 
     // Step 3: return how many items are in line.
     // Walk from front with current, like size in IntList. Empty: 0.
     public int size() {
-        // TODO
-        return -1;
+        int count = 0;
+        Node current = front; 
+        while (current != null) {
+            count++;
+            current = current.next;
+        }
+        return count;
     }
 
     // Done for you: the items from front to back, like "10 20 30".
