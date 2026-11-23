@@ -17,7 +17,14 @@ public class QueueLab {
     // My guess:
     static int[] throughQueue(int[] a) {
         int[] result = new int[a.length];
-        // TODO
+        IntQueue q = new IntQueue();
+        for (int i = 0; i < a.length; i++) {
+            q.enqueue(a[i]);
+        }
+        for (int i = 0; i < result.length; i++) {
+            result[i] = q.dequeue();
+        }
+       
         return result;
     }
 
@@ -25,7 +32,12 @@ public class QueueLab {
     // (The person at the front goes to the end of the line.)
     // Use only dequeue and enqueue.
     static void rotate(IntQueue q, int k) {
-        // TODO
+       if (q.isEmpty()) {
+           return;
+    }
+        for (int i = 0; i < k; i++) {
+            q.enqueue(q.dequeue());
+        }
     }
 
     // Step 6 (challenge): hot potato. Players 1, 2, ..., n stand in a line
@@ -36,8 +48,12 @@ public class QueueLab {
     //   - the player now at the front is out (dequeue, and do not put back)
     // Return the last player left.
     static int hotPotato(int n, int k) {
-        // TODO
-        return 0;
+       IntQueue q = line(n);
+        while (q.size() > 1) {
+            rotate(q, k); 
+            q.dequeue();
+        }
+        return q.dequeue();
     }
 
     // ---------- checks: do not change below this line ----------
